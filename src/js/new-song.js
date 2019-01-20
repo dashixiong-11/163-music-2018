@@ -14,8 +14,11 @@
       this.view = view
       this.model = model
       this.view.render(this.model.data)
-      window.eventHub.on('upload',(data)=>{
+      window.eventHub.on('new',(data)=>{
         this.active()
+      })
+      $(this.view.el).on('click',()=>{
+        window.eventHub.emit('new')
       })
       window.eventHub.on('select',(data)=>{
         this.deactive()

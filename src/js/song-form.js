@@ -2,7 +2,6 @@
   let view = {
     el: '.page>main',
     template: `
-            <h1>新建歌曲</h1>
              <form class="form">
                <div class="row">
                  <label>
@@ -34,6 +33,11 @@
         html = html.replace(`__${string}__`,data[string]||'')
       })
       $(this.el).html(html)
+      if(data.id){
+        $(this.el).prepend('<h1>编辑歌曲</h1>')
+      }else{
+        $(this.el).prepend('<h1>新建歌曲</h1>')
+      }
     },
     reset(){
       this.render({})
@@ -71,14 +75,22 @@
       this.model = model
       this.view.render()
       this.bindEvents()
-      window.eventHub.on('upload',(data)=>{
+      window.eventHub.on('new',(data)=>{
+        console.log(this.model.data)
+        if(this.model.data.id){
+          this.model.data = {}
+        }else{
+          Object.assign(this.model.data,data)
+        }
+        this.view.render(this.model.data)
+      })
+      window.eventHub.on('select',(data)=>{
+        console.log(data)
         this.model.data = data
         this.view.render(this.model.data)
       })
     },
-    bindEvents(){
-      $(this.view.el).on('submit','form',(e)=>{
-        e.preventDefault()
+    save(){
         let needs = 'name singer url'.split(' ')
         let data = {}
         needs.map((string)=>{
@@ -88,6 +100,18 @@
           .then(()=>{
             this.view.reset()
           })
+    },
+    updata(){
+
+    },
+    bindEvents(){
+      $(this.view.el).on('submit','form',(e)=>{
+        e.preventDefault()
+        if(this.model.data.id){
+          this.updata()
+        }else{
+          this.save()
+        }
       })
     }
 

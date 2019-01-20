@@ -17,7 +17,7 @@
       })
     },
     clearactive(){
-      $(this.el).find('.active').remove('active')
+      $(this.el).find('.active').removeClass('active')
     },
     activeItem(li){
      li .addClass('active').siblings('.active').removeClass('active')
@@ -51,12 +51,12 @@
       this.view.render(this.model.data)
     },
     bindEventHub(){
-      window.eventHub.on('upload',()=>{
-        this.view.clearactive()
-      })
       window.eventHub.on('create',(data)=>{
         this.model.data.songs.push(data)
         this.view.render(this.model.data)
+      })
+      window.eventHub.on('new',()=>{
+        this.view.clearactive()
       })
     },
     bindEvents(){
@@ -64,7 +64,15 @@
         (x)=>{
           this.view.activeItem($(x.currentTarget))
           let songId = x.currentTarget.getAttribute('song-id')
-          window.eventHub.emit('select',{id:songId})
+          let songs = this.model.data.songs
+          let data
+          for(let i=0;i<songs.length;i++){
+            if(songs[i].id === songId){
+              data = songs[i]
+              break
+            }
+          }
+          window.eventHub.emit('select',JSON.parse(JSON.stringify(data)))
           }
       )
     },
