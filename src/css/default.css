@@ -59,6 +59,7 @@ input{
 }
 .songlist-container{
   flex-grow:1;
+  overflow:auto;
 }
 /*.songList{*/
   /*flex-grow:1;*/

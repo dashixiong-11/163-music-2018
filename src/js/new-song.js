@@ -14,7 +14,6 @@
       this.view = view
       this.model = model
       this.view.render(this.model.data)
-      this.active()
       window.eventHub.on('upload',(data)=>{
         this.active()
       })

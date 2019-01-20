@@ -25,12 +25,26 @@
       songs:[
         
       ]
+    },
+    find(){
+      var query = new AV.Query('Song');
+      return  query.find().then(
+        (songs)=>{
+          this.data.songs = songs.map(
+            (song)=>{return {id:song.id, ...song.attributes}}
+          )
+          return songs
+        }
+      )
     }
   }
   let controller = {
     init(view,model){
       this.view = view
       this.model = model
+      this.model.find().then(() => {
+        this.view.render(this.model.data)
+      })
       this.view.render(this.model.data)
       window.eventHub.on('upload',()=>{
         this.view.clearactive()
