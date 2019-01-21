@@ -117,7 +117,6 @@
         data[string]= $(this.view.el).find(`[name="${string}"]`).val()
       })
       this.model.updata(data).then(()=>{
-        console.log('1')
         window.eventHub.emit('updata',JSON.parse(JSON.stringify(this.model.data)))
       })
     },

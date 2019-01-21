@@ -7,9 +7,13 @@
     `,
     render(data){
       $(this.el).html(this.template)
-      let {songs} = data
+      let {songs,selectedsongId} = data
       let lilist = songs.map((song)=>{
-          return $('<li></li>').text(song.name).attr('song-id',song.id)
+          let $li = $('<li></li>').text(song.name).attr('song-id',song.id)
+        if(song.id === selectedsongId){
+          $li.addClass('active')
+        }
+        return $li
       })
       $(this.el).find('ul').empty()
       lilist.map((demoli)=>{
@@ -19,15 +23,13 @@
     clearactive(){
       $(this.el).find('.active').removeClass('active')
     },
-    activeItem(li){
-     li .addClass('active').siblings('.active').removeClass('active')
-    }
   }
   let model = {
     data:{
       songs:[
         
-      ]
+      ],
+      selectedsongId:undefined,
     },
     find(){
       var query = new AV.Query('Song');
@@ -59,10 +61,10 @@
         this.view.clearactive()
       })
       window.eventHub.on('updata',(song)=>{
-        let songs = this.model.data
+        let songs = this.model.data.songs
         for(let i=0 ; i<songs.length; i++ ){
           if(songs[i].id===song.id){
-            songs[i] = song
+            Object.assign(songs[i],song)
           }
         }
         this.view.render(this.model.data)
@@ -71,8 +73,9 @@
     bindEvents(){
       $(this.view.el).on('click','li',
         (x)=>{
-          this.view.activeItem($(x.currentTarget))
           let songId = x.currentTarget.getAttribute('song-id')
+          this.model.data.selectedsongId= songId
+          this.view.render(this.model.data)
           let songs = this.model.data.songs
           let data
           for(let i=0;i<songs.length;i++){
