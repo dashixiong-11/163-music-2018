@@ -58,6 +58,15 @@
       window.eventHub.on('new',()=>{
         this.view.clearactive()
       })
+      window.eventHub.on('updata',(song)=>{
+        let songs = this.model.data
+        for(let i=0 ; i<songs.length; i++ ){
+          if(songs[i].id===song.id){
+            songs[i] = song
+          }
+        }
+        this.view.render(this.model.data)
+      })
     },
     bindEvents(){
       $(this.view.el).on('click','li',
@@ -69,7 +78,6 @@
           for(let i=0;i<songs.length;i++){
             if(songs[i].id === songId){
               data = songs[i]
-              break
             }
           }
           window.eventHub.emit('select',JSON.parse(JSON.stringify(data)))

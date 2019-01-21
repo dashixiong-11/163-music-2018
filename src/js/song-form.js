@@ -67,7 +67,17 @@
       },(error)=> {
         console.error(error);
       });
-    }
+    },
+    updata(data){
+      var song = AV.Object.createWithoutData('Song', this.data.id);
+      song.set('name',data.name);
+      song.set('singer',data.singer);
+      song.set('url',data.url);
+      return song.save().then((res)=>{
+        Object.assign(this.data,data)
+        return res
+      });
+    },
   }
   let controller = {
     init(view,model){
@@ -85,7 +95,6 @@
         this.view.render(this.model.data)
       })
       window.eventHub.on('select',(data)=>{
-        console.log(data)
         this.model.data = data
         this.view.render(this.model.data)
       })
@@ -97,12 +106,20 @@
           data[string]= $(this.view.el).find(`[name="${string}"]`).val()
         })
         this.model.create(data)
-          .then(()=>{
-            this.view.reset()
-          })
+        .then(()=>{
+          this.view.reset()
+        })
     },
     updata(){
-
+      let needs = 'name singer url'.split(' ')
+      let data = {}
+      needs.map((string)=>{
+        data[string]= $(this.view.el).find(`[name="${string}"]`).val()
+      })
+      this.model.updata(data).then(()=>{
+        console.log('1')
+        window.eventHub.emit('updata',JSON.parse(JSON.stringify(this.model.data)))
+      })
     },
     bindEvents(){
       $(this.view.el).on('submit','form',(e)=>{
@@ -115,7 +132,7 @@
       })
     }
 
-}
+  }
 
-    controller.init(view,model)
+  controller.init(view,model)
 }
