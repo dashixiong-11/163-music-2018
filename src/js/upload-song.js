@@ -36,17 +36,20 @@
           },
           'BeforeUpload': function(up, file) {
             // 每个文件上传前,处理相关的事情
+            window.eventHub.emit('beforeloading')
+            window.eventHub.emit('new')
           },
           'UploadProgress': function(up, file) {
             // 每个文件上传时,处理相关的事情
           },
           'FileUploaded': function(up, file, info) {
+            window.eventHub.emit('afterloading')
             // var sourceLink = domain + res.key; 获取上传成功后的文件的Url
             upload.textContent='上传完成'
             var domain = up.getOption('domain')
             var response = JSON.parse(info.response)
             var sourceLink = 'http://' + domain + '/' + encodeURIComponent(response.key);
-            window.eventHub.emit('new',{
+            window.eventHub.emit('uploadsong',{
               url:sourceLink,
               name:response.key
             })
@@ -56,6 +59,7 @@
           },
           'UploadComplete': function() {
             //队列文件处理完毕后,处理相关的事情
+            window.eventHub.emit('clearliactive')
           }  
         }
       });

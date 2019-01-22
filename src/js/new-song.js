@@ -17,6 +17,9 @@
       window.eventHub.on('new',(data)=>{
         this.active()
       })
+      window.eventHub.on('uploadsong',()=>{
+        this.active()
+      })
       $(this.view.el).on('click',()=>{
         window.eventHub.emit('new')
       })

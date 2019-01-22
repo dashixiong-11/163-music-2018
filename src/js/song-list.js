@@ -60,6 +60,12 @@
       window.eventHub.on('new',()=>{
         this.view.clearactive()
       })
+      window.eventHub.on('uploadsong',()=>{
+        this.view.clearactive()
+      })
+      window.eventHub.on('clearliactive',()=>{
+        this.model.data.selectedsongId = undefined
+      })
       window.eventHub.on('updata',(song)=>{
         let songs = this.model.data.songs
         for(let i=0 ; i<songs.length; i++ ){

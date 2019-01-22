@@ -86,12 +86,11 @@
       this.view.render()
       this.bindEvents()
       window.eventHub.on('new',(data)=>{
-        console.log(this.model.data)
-        if(this.model.data.id){
-          this.model.data = {}
-        }else{
-          Object.assign(this.model.data,data)
-        }
+        this.model.data = {}
+        this.view.render(this.model.data)
+      })
+      window.eventHub.on('uploadsong',(data)=>{
+        Object.assign(this.model.data,data)
         this.view.render(this.model.data)
       })
       window.eventHub.on('select',(data)=>{
@@ -100,12 +99,12 @@
       })
     },
     save(){
-        let needs = 'name singer url'.split(' ')
-        let data = {}
-        needs.map((string)=>{
-          data[string]= $(this.view.el).find(`[name="${string}"]`).val()
-        })
-        this.model.create(data)
+      let needs = 'name singer url'.split(' ')
+      let data = {}
+      needs.map((string)=>{
+        data[string]= $(this.view.el).find(`[name="${string}"]`).val()
+      })
+      this.model.create(data)
         .then(()=>{
           this.view.reset()
         })
