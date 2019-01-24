@@ -19,7 +19,7 @@
         uptoken_url: 'http://localhost:8888/uptoken',            //Ajax请求upToken的Url，**强烈建议设置**（服务端提供）
         // uptoken : '', //若未指定uptoken_url,则必须指定 uptoken ,uptoken由其他程序生成
         // unique_names: true, // 默认 false，key为文件名。若开启该选项，SDK为自动生成上传成功后的key（文件名）。
-        domain: 'pj5l75of0.bkt.clouddn.com',   //bucket 域名，下载资源时用到，**必需**
+        domain: 'plthbagry.bkt.clouddn.com',   //bucket 域名，下载资源时用到，**必需**
         get_new_uptoken: false,  //设置上传文件的时候是否每次都重新获取新的token
         container: this.view.find('#yyy'),           //上传区域DOM ID，默认是browser_button的父元素，
         max_file_size: '100mb',           //最大文件体积限制
