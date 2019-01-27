@@ -13,5 +13,8 @@
     "plupload": "^2.3.2",
     "qiniu": "^7.2.1",
     "qiniu-js": "^1.0.22"
+  },
+  "devDependencies": {
+    "webpack-cli": "^3.2.1"
   }
 }
