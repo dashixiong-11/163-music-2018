@@ -75,7 +75,12 @@
       song.set('lyrics',data.lyrics)
       return song.save().then((newsong)=> {
         let {id,attributes} = newsong
-        Object.assign(this.data,{id,...attributes})
+        Object.assign(this.data,{id:id,name:attributes.name,
+          singer:attributes.singer,
+          url:attributes.url,
+          cover:attributes.cover,
+          lyrics:attributes.lyrics
+        })
         let string = JSON.stringify(this.data)
         let object = JSON.parse(string)
         window.eventHub.emit('create',object)

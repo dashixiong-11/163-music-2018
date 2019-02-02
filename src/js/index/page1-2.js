@@ -38,6 +38,7 @@
         (songs)=>{
           this.data.songs = songs.map(
             (song)=>{return {id:song.id, ...song.attributes}}
+            //Object.assign({id:song.id},song.attributes)   如果浏览器不支持es6语法 就用这种写法
           )
           return songs
         }

@@ -1,3 +1,4 @@
+
 *{
   padding:0;
   margin:0;
@@ -20,7 +21,6 @@ input{
   display:flex;
   align-items:center;
   justify-content:center;
-  width:200px;
   flex-direction:column;
   border-radius:5px;
 }
@@ -90,6 +90,18 @@ main .row{
 }
 .page main.active{
   background-color:#ddd;
+}
+.Boxsongform{
+  border:1px solid;
+  border-radius:10px;
+  padding:10px;
+  position:absolute;
+  background-color:	#EEE8AA;
+  top:100px;
+  display:none;
+}
+.Boxsongform.active{
+  display:block;
 }
 .form input[type=text]{
   border-radius:3px;

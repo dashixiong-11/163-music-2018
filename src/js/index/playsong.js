@@ -33,7 +33,7 @@ display: flex; flex-direction: column; height: 100vh;
         <div class="song-description">
           <h1>__name__</h1>
           <div class="lyric">
-            <div class="lines"style="transform: translateY(24px);">
+            <div class="lines">
             __lyricstext__
             </div>
           </div>

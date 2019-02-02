@@ -36,7 +36,13 @@
       return  query.find().then(
         (songs)=>{
           this.data.songs = songs.map(
-            (song)=>{return {id:song.id, ...song.attributes}}
+            (song)=>{
+              return {id:song.id,name:song.attributes.name,
+                singer:song.attributes.singer,
+                url:song.attributes.url,
+                cover:song.attributes.cover,
+                lyrics:song.attributes.lyrics
+              }}
           )
           return songs
         }
@@ -90,7 +96,7 @@
             }
           }
           window.eventHub.emit('select',JSON.parse(JSON.stringify(data)))
-          }
+        }
       )
     },
     getAllSongs(){
