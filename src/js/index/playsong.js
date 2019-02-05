@@ -117,7 +117,7 @@ display: flex; flex-direction: column; height: 100vh;
         if(song.attributes.lyrics){
           let lyrics = song.attributes.lyrics.split('\n')
           let lyricstext = ''
-          lyrics.map((data)=>{
+           lyrics.map((data)=>{
             let regex = /\[([\d:.]+)\](.+)/
             let matches = data.match(regex)
             let timing = matches[1]

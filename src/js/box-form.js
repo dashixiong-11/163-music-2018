@@ -79,7 +79,7 @@
       needs.map((string)=>{
         data[string] = $(this.view.el).find(`[name="${string}"]`).val()
       })
-      if(data.name){
+      if(data.boxname){
       this.model.updata(data).then(()=>{
         window.eventHub.emit('uploadbox',JSON.parse(JSON.stringify(this.model.data)))
       })
