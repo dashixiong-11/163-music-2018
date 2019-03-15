@@ -9,8 +9,7 @@ String.prototype.replaceAll = function(reallyDo, replaceWith, ignoreCase) {
   let view = {
     el:'#playsong',
     template:`
-      <div style="background: transparent url(__cover__) no-repeat center;
-display: flex; flex-direction: column; height: 100vh;
+      <div style="display: flex; flex-direction: column; height: 100vh;
   background-size: cover;
       "  class="page">
         <div class="disc-container">
@@ -49,7 +48,7 @@ display: flex; flex-direction: column; height: 100vh;
         .replace('__url__',data.song.url)
         .replace('__name__',data.song.name)
         .replace('__lyricstext__',data.lyricstext)
-        .replaceAll('__cover__',data.song.cover)
+        .replace('__cover__',data.song.cover)
       $(this.el).html(temp)
     },
     findaudio(){

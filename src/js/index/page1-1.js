@@ -7,7 +7,6 @@
           </ol>
     `,
     render(data){
-      console.log(data)
       $(this.el).html(this.template)
       let $lilist = data.map((box)=>{
         let $li =  $(`
@@ -36,11 +35,9 @@
       query.limit(6)
       return  query.find().then(
         (songboxs)=>{
-          console.log(songboxs)
           this.data.boxs =  songboxs.map((box)=>{
             return {id:box.id,...box.attributes}
           })
-          console.log(this.data.boxs)
           return songboxs
         }
       )
@@ -54,7 +51,6 @@
     },
     bindEvents(){
       this.model.find().then(()=>{
-        console.log(this.model.data.boxs)
         this.view.render(this.model.data.boxs)
       })
     }
